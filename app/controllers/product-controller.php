@@ -17,8 +17,6 @@
 			$sql .= "PrefixId = $product->PrefixId ";
 			$sql .=	"WHERE Id = $product->Id";
 			
-			echo "\n\n$sql\n\n";
-			
 			parent::Execute($sql);
 			
 			// need some error checking to make sure the prefix id matches the prefix, ditto for stamp type
