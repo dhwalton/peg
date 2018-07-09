@@ -1,0 +1,32 @@
+UPDATE Products
+SET p.StampTypeId = st.Id
+FROM Products p, StampTypes st
+WHERE st.suffix = (SELECT RIGHT(Sku, 1) FROM Products)
+
+UPDATE Products
+SET p.StampTypeId = st.Id
+FROM Products p, StampTypes st
+WHERE st.Suffix = SUBSTR(p.Sku,-1)
+
+UPDATE Products
+SET p.StampTypeId = StampTypes.Id
+WHERE StampTypes.suffix = SUBSTR(p.Sku,-1)
+
+CREATE TEMPORARY TABLE Stamps
+SELECT p.Sku, SUBSTR(p.Sku,-1)
+FROM Products p
+WHERE 1
+
+--------------------------------------
+These Work:
+--------------------------------------
+SELECT RIGHT(Sku, 1) FROM Products
+
+SELECT p.Sku, p.Name, st.Id
+FROM Products p INNER JOIN StampTypes st
+ON (SUBSTR(p.Sku,-1) = st.Suffix)
+
+UPDATE Products p 
+JOIN StampTypes st
+ON (SUBSTR(p.Sku,-1) = st.Suffix)
+SET p.StampTypeId = st.Id
